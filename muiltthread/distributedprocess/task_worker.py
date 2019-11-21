@@ -1,7 +1,7 @@
 import time,sys,queue
 from multiprocessing.managers import BaseManager
 
-SERVER_ADDR='192.168.253.1'
+SERVER_ADDR='192.168.253.131'
 
 
 class QueueManager(BaseManager):
