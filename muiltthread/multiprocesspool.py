@@ -1,7 +1,7 @@
 import os
 import random
 import time
-from multiprocessing import pool
+from multiprocessing import Pool
 
 
 def long_time_task(name):
@@ -14,7 +14,7 @@ def long_time_task(name):
 
 if __name__ == '__main__':
     print('parent process %s.' % os.getpid())
-    p = pool(4)
+    p = Pool(4)
     for i in range(5):
         p.apply_async(long_time_task, args=(i,))
     print('waiting for all subprocesses done...')
