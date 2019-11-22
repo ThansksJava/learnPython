@@ -10,10 +10,10 @@ class QueueManager(BaseManager):
     pass
 
 
-QueueManager.register("get_task_queue", callable=lambda :task_queue)
-QueueManager.register("get_result_queue", callable=lambda :result_queue)
+QueueManager.register("get_task_queue", callable=lambda: task_queue)
+QueueManager.register("get_result_queue", callable=lambda: result_queue)
 # bind port 5000,setup verification code
-manager = QueueManager(address=("",5000),authkey=b"abc")
+manager = QueueManager(address=("", 5000), authkey=b"abc")
 # start Queue
 manager.start()
 # get the object visited by internet
@@ -33,7 +33,3 @@ for i in range(10):
 # close manager
 manager.shutdown()
 print("master exit.")
-
-
-
-

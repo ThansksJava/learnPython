@@ -1,7 +1,8 @@
-import time,sys,queue
+import queue
+import time
 from multiprocessing.managers import BaseManager
 
-SERVER_ADDR='192.168.253.131'
+SERVER_ADDR = '192.168.253.131'
 
 
 class QueueManager(BaseManager):
@@ -25,7 +26,7 @@ for i in range(10):
     try:
         n = task.get(timeout=1)
         print('run task %d * %d...' % (n, n))
-        r = '%d * %d = %d' % (n, n, n*n)
+        r = '%d * %d = %d' % (n, n, n * n)
         time.sleep(1)
         result.put(r)
     except queue.Empty:
