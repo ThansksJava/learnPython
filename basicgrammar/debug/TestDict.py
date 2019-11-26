@@ -1,6 +1,6 @@
 import unittest
 
-from debug import Dict
+from basicgrammar.debug import Dict
 
 
 class TestDict(unittest.TestCase):
