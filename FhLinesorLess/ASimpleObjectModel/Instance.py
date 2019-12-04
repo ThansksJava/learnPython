@@ -10,7 +10,7 @@ class Instance(Base):
         Base.__init__(self, cls, {})
 
 
-OBJECT = Class(name="object", base_class=None,fields={}, metaclass=None)
-TYPE = Class(name="type", base_class=OBJECT, fields={},metaclass=None)
+OBJECT = Class(name="object", base_class=None, fields={}, metaclass=None)
+TYPE = Class(name="type", base_class=OBJECT, fields={}, metaclass=None)
 OBJECT.cls = TYPE
 TYPE.cls = TYPE

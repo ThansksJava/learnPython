@@ -1,4 +1,5 @@
-from .Base import Base
+from . import Base
+from .Base import MISSING
 
 
 class Class(Base):
@@ -19,3 +20,9 @@ class Class(Base):
     def issubclass(self, cls):
         """ is self a subclass of cls? """
         return cls in self.method_resolution_order()
+
+    def _read_from_class(self, methname):
+        for cls in self.method_resolution_order():
+            if methname in cls._fields:
+                return cls._fields[methname]
+        return MISSING

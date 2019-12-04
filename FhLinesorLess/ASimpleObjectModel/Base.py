@@ -5,7 +5,20 @@ class Base(object):
 
     def read_attr(self, fieldname):
         """ read field 'fieldname' out of the object """
-        return self._read_dict(fieldname)
+        result = self._read_dict(fieldname)
+        if result is not MISSING:
+            return result
+        result = self.cls._read_from_class(fieldname)
+        if _is_bindable(result):
+            return _make_boundmethod(result, self)
+        if result is not MISSING:
+            return result
+        raise AttributeError(fieldname)
+
+    def callmethod(self, methname, *args):
+        """ call method 'methname' with arguments 'args' on object """
+        meth = self.read_attr(methname)
+        return meth(*args)
 
     def write_attr(self, fieldname, value):
         """ write field 'fieldname' into the object """
@@ -30,3 +43,13 @@ class Base(object):
 
 
 MISSING = object()
+
+
+def _is_bindable(meth):
+    return callable(meth)
+
+
+def _make_boundmethod(meth, self):
+    def bound(*args):
+        return meth(self, *args)
+    return bound
