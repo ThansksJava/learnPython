@@ -1,6 +1,4 @@
-from . import Base
-from .Base import MISSING
-
+from FhLinesorLess.ASimpleObjectModel.Base import Base,MISSING
 
 class Class(Base):
     """ A User-defined class. """
