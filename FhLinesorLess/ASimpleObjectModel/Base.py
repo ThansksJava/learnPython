@@ -13,6 +13,9 @@ class Base(object):
             return _make_boundmethod(result, self)
         if result is not MISSING:
             return result
+        meth = self.cls._read_from_class("__getattr__")
+        if meth is not MISSING:
+            return meth(self, fieldname)
         raise AttributeError(fieldname)
 
     def callmethod(self, methname, *args):
@@ -22,7 +25,8 @@ class Base(object):
 
     def write_attr(self, fieldname, value):
         """ write field 'fieldname' into the object """
-        self._write_dict(fieldname, value)
+        meth = self.cls._read_from_class("__setattr__")
+        return meth(self, fieldname, value)
 
     def isinstance(self, cls):
         """ return True if the object is an instance of class cls """
@@ -46,10 +50,7 @@ MISSING = object()
 
 
 def _is_bindable(meth):
-    return callable(meth)
-
+    return hasattr(meth, "__get__")
 
 def _make_boundmethod(meth, self):
-    def bound(*args):
-        return meth(self, *args)
-    return bound
+    return meth.__get__(self, None)
